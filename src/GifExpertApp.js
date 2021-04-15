@@ -12,7 +12,7 @@ const [categories, setCategories] = useState(['One Punch Man', 'Samurai X', 'Dra
   return (
     <>
       <h2>GifExpertApp</h2>
-      <AddCategory />
+      <AddCategory setCategories={ setCategories } />
       <hr />
 
 
