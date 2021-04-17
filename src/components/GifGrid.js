@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { getGif } from '../helpers/getGif';
 import { GifGridItem } from './GifGridItem';
 
 export const GifGrid = ( {category} ) => {
@@ -6,33 +7,17 @@ export const GifGrid = ( {category} ) => {
   const [images, setImages] = useState([])
 
   useEffect( () => {
-    getGif();
-  }, [])
+    getGif(category)
+      .then(setImages)
+  }, [category])
 
 
-// getGif hace el llamado a la API
 
-  const getGif = async() => {
-    const url = 'https://api.giphy.com/v1/gifs/search?q=Dragon+Ball&limit=10&api_key=ZGpqRWarUaSS8vl9PImdCXW11kLY4MET';
-    const resp = await fetch(url);
-    const {data} = await resp.json();
-
-    const gifs = data.map( img => {
-      return {
-        id: img.id,
-        title: img.title,
-        url: img.images?.downsized_medium.url
-      }
-    })
-
-    console.log(gifs);
-    setImages(gifs);
-  }
 
   return (
     <>
     <h3> {category} </h3>
-    <div class="card-grid">
+    <div className="card-grid">
         {
           images.map( img => (
             <GifGridItem
